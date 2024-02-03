@@ -4,8 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>영화예매사이트</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="resources/style.css">
+    <script src="resources/main.js"></script>
 </head>
 <body>
-    
+    <section class="box">
+        <div class="image">
+
+        </div>
+        <div class="sel_box">
+            <div class="pick">
+                <label for="item_pick">영화를 선택하세요.</label>
+                <select name="item_pick" id="item_pick">
+                    <option value="0" selected>선택안함</option>
+                    <option value="10000">위시 (10000원)</option>
+                    <option value="12000">올빼미 (12000원)</option>
+                    <option value="8000">토이스토리 (8000원)</option>
+                    <option value="9000">가디언즈 오브 갤럭시 (9000원)</option>
+                </select>
+            </div>
+            <div class="seat_value">
+                <ul class="flex">
+                    <li><div class="y"></div>선택가능</li>
+                    <li><div class="r"></div>선택</li>
+                    <li><div class="b"></div>선택불가</li>
+                </ul>
+            </div>
+            <div class="age">
+                <div class="age_1 flex">
+                    <span>일반</span>
+                    <ul class="flex">
+                        <li class="0"><a data-num="0" class="on" href="javascript:void(0);">0</a></li>
+                        <li class="1"><a data-num="1" href="javascript:void(0);">1</a></li>
+                        <li class="2"><a data-num="2" href="javascript:void(0);">2</a></li>
+                        <li class="3"><a data-num="3" href="javascript:void(0);">3</a></li>
+                        <li class="4"><a data-num="4" href="javascript:void(0);">4</a></li>
+                    </ul>
+                </div>
+                <div class="age_2 flex">
+                    <span>청소년</span>
+                    <ul class="flex">
+                        <li class="0"><a data-num="0" class="on" href="javascript:void(0);">0</a></li>
+                        <li class="1"><a data-num="1" href="javascript:void(0);">1</a></li>
+                        <li class="2"><a data-num="2" href="javascript:void(0);">2</a></li>
+                        <li class="3"><a data-num="3" href="javascript:void(0);">3</a></li>
+                        <li class="4"><a data-num="4" href="javascript:void(0);">4</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="screen">SCREEN</div>
+            <div class="seat flex">
+                <div class="A"><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a></div>
+                <div class="B"><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a></div>
+                <div class="C"><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a></div>
+                <div class="D"><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a></div>
+            </div>
+            <div class="total">
+                <div class="text">
+                    <div class="pay_adult">
+                        <span>일반</span>
+                        <span class="data">
+                            <span class="pay">0</span>
+                            <span class="txt">원 X</span>
+                            <span class="person">0</span>
+                        </span>
+                    </div>
+                    <div class="pay_youth">
+                        <span>청소년</span>
+                        <span class="data">
+                            <span class="pay">0</span>
+                            <span class="txt">원 X</span>
+                            <span class="person">0</span>
+                        </span>
+                    </div>
+                    <div class="pay_total">
+                        <span>총금액</span>
+                        <span class="data">
+                            <span class="price">0</span>
+                            <span class="won">원</span>
+                        </span>
+                    </div>
+                </div>
+                <button type="submit">결제하기</button>
+        </div>
+        </div>
+    </section>
 </body>
 </html>
