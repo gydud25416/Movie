@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function(){ // 전체 1회 실행
 var movie_pick = document.querySelector("#item_pick"); //영화 선택
 var movie_img = document.querySelector("section .image"); //영화 포스터
 var adult_sel = document.querySelectorAll('.age_1 ul li a') //일반 인원수
@@ -37,8 +37,8 @@ function pay(){ //총금액 계산
 
 
 
-
-function setData(){ //영화선택
+/* select 영화선택 이벤트 */
+function setData(){ //영화선택 
 
     if(movie_pick.value == '10000'){ 
         movie_img.style.background="url(resources/images/movie_01.jpg) no-repeat";
@@ -81,17 +81,19 @@ function setData(){ //영화선택
 }
 
 movie_pick.addEventListener("change", setData ) //영화 선택
-movie_pick.addEventListener("change", function(){
+movie_pick.addEventListener("change", function(){  //영화 선택 시 저장 초기화
     localStorage.removeItem('pay_adult'); //일반 가격
     localStorage.removeItem('pay_youth'); //청소년 가격
     localStorage.removeItem('per_adult'); //일반 인원수
     localStorage.removeItem('per_youth'); //청소년 인원수
     localStorage.removeItem('pay_total'); //청소년 인원수
-} ) //영화 선택
+    localStorage.removeItem('seatIndex'); // 좌석idx
+    
+} )
 
 
 
-
+/* 일반 인원수 클릭 이벤트 */
 adult_sel.forEach(function(ele){ // 모든 일반 인원수 버튼
     ele.addEventListener("click",function(el){ //클릭 이벤트 추가
         var seat_sel = document.querySelectorAll('.seat div a.select') // 선택된 좌석
@@ -119,11 +121,12 @@ adult_sel.forEach(function(ele){ // 모든 일반 인원수 버튼
     localStorage.setItem('per_adult', per_adult.innerText); //일반 인원수 저장
 
     console.log(per_adult.innerText)
+    localStorage.removeItem('seatIndex') //좌석 초기화
 
     })
 })
 
-
+/* 청소년 인원수 클릭 이벤트 */
 adult_sel2.forEach(function(ele){ // 모든 청소년 인원수 버튼
     ele.addEventListener("click",function(el){
         var seat_sel = document.querySelectorAll('.seat div a.select') // 선택된 좌석
@@ -155,27 +158,37 @@ adult_sel2.forEach(function(ele){ // 모든 청소년 인원수 버튼
     localStorage.setItem('per_youth',  per_youth.innerText ); //청소년 인원수 저장
 
     console.log(per_youth.innerText)
+    localStorage.removeItem('seatIndex') //좌석idx 초기화
 
     })
 })
 
 
-
+/* 좌석 선택 이벤트 */
 seat.forEach(function(el){
 el.addEventListener('click', function(e){
     var adult_sel_data = document.querySelector('.age_1 ul li a.on').dataset.num // 선택된 일반 인원수
     var youth_sel_data = document.querySelector('.age_2 ul li a.on').dataset.num // 선택된청소년 인원수
-    var seat_sel = document.querySelectorAll('.seat div a.select') // 선택된 좌석
-    
+  
+
     if(seat_sel.length + 1 > parseInt(adult_sel_data) + parseInt(youth_sel_data) ){
-        // alert('선택한 인원수보다 많습니다.')
+     
         e.target.classList.remove('select');
         e.preventDefault;
         return false
     }  
     e.target.classList.toggle('select');
     
-  
+    var seat_sel = document.querySelectorAll('.seat div a.select') // 선택된 좌석
+    var seats = document.querySelectorAll('.seat div a') //전체좌석
+
+    var seatIndex = [...seat_sel].map(function(seat){ //선택한 모든 좌석(var seat_sel)에 function 순회
+        return [...seats].indexOf(seat); //seatIndex = 모든 좌석(seats) 배열 중 선택한 좌석(seat)의 index값 ->map 모든 배열 순회
+    })
+
+    localStorage.setItem('seatIndex', JSON.stringify(seatIndex)); // 선택 좌석 index값 저장
+
+    
      
 })
 })
@@ -194,36 +207,61 @@ if(!movie_pick.value == '' ){
 }
 console.log(movie_pick.value)
 
-// 총 금액 정보 저장
+// 총 금액 정보, 좌석 정보 저장
 function pay2(){
+
+
     pay_adult.innerText = localStorage.getItem('pay_adult'); //일반 가격
     pay_youth.innerText = localStorage.getItem('pay_youth'); //청소년 가격
-    per_adult.innerText = localStorage.getItem('per_adult'); //일반 인원수
-    per_youth.innerText = localStorage.getItem('per_youth'); //청소년 인원수
-    pay_total.innerText = (pay_adult.innerText * per_adult.innerText) + (pay_youth.innerText * per_youth.innerText) //총가격
+    // per_adult.innerText = localStorage.getItem('per_adult'); //일반 인원수
+    // per_youth.innerText = localStorage.getItem('per_youth'); //청소년 인원수
 
- 
+    if(movie_pick.value == ''){
+        pay_total.innerText = '0' //영화 미선택 시 0원
+    }else{
+        pay_total.innerText = (pay_adult.innerText * per_adult.innerText) + (pay_youth.innerText * per_youth.innerText) //총가격
+
+    }
+    //저장된 인원수가 있으면 계산 보여짐
     if(per_adult.innerText > 0){
         document.querySelector('.pay_adult').style.display="block"
     }
     if(per_youth.innerText > 0){
         document.querySelector('.pay_youth').style.display="block"
     }
-    adult_sel[0].classList.remove('on'); // 일반 인원수[0] 클래스 삭제 
-    adult_sel[per_adult.innerText].classList.add('on'); // 일반 인원수 저장
-    adult_sel2[0].classList.remove('on'); // 청소년 인원수[0] 클래스 삭제 
-     adult_sel2[per_youth.innerText].classList.add('on'); // 청소년 인원수 저장
-
+ 
+ /* 좌석 선택 정보 저장  */
+    var seats = document.querySelectorAll('.seat div a') //전체좌석
+    var seat_idx = JSON.parse(localStorage.getItem('seatIndex')) //선택한 좌석 idx배열값
+    if(seat_idx !== null && seat_idx.length > 0){ // 선택한 상태에서만 실행
+    seats.forEach(function(row, rowIdx){ // 모든 좌석(a)에 {row(seats)} rowIdx 값 추가
+        if(seat_idx.indexOf(rowIdx) > -1 ){ //[선택좌석1, 선택좌석2 ...] 처럼 선택 좌석(seat_idx)이 하나 이상일때
+            row.classList.add('select')
+        }
+    })
+}
 } 
-pay2();
+pay2(); // 총 금액 정보, 좌석 정보 저장
 console.log(pay_adult.innerText)
 console.log(pay_youth.innerText)
 console.log(per_adult.innerText)
 console.log(per_youth.innerText)
 console.log(pay_total.innerText)
 
+/* 일반, 청소년 인원수 저장 불러오기 */
+per_adult.innerText = localStorage.getItem('per_adult');
+ 
+if(per_adult.innerText > 0){
+    adult_sel[0].classList.remove('on')// 일반 인원수[0] 클래스 삭제 
+    adult_sel[per_adult.innerText].classList.add('on') // 일반 인원수 저장
+}
 
-
+per_youth.innerText = localStorage.getItem('per_youth');
+ 
+if(per_youth.innerText > 0){
+    adult_sel2[0].classList.remove('on')// 청소년 인원수[0] 클래스 삭제
+    adult_sel2[per_youth.innerText].classList.add('on')// 청소년 인원수 저장
+}
 
 
 
