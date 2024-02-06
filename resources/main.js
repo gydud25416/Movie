@@ -26,7 +26,17 @@ function pay(){ //총금액 계산
     per_adult.innerText = adult_sel_data 
     per_youth.innerText = youth_sel_data
     pay_total.innerText = ( movie_pick.value * adult_sel_data ) + ( (movie_pick.value - 2000 ) * youth_sel_data ) //총 금액
+
+    localStorage.setItem('pay_adult', parseInt( pay_adult.innerText ));
+    localStorage.setItem('pay_youth', parseInt( pay_youth.innerText) );
+    localStorage.setItem('pay_total', pay_total.innerText);
+
+    console.log(pay_total.innerText)
+
 }
+
+
+
 
 function setData(){ //영화선택
 
@@ -65,9 +75,19 @@ function setData(){ //영화선택
     pay(); //총 금액 다시 계산
 
     localStorage.setItem('selectMovie', movie_pick.value ); //선택한 영화 로컬스토리지 저장
+
+   
+    
 }
 
 movie_pick.addEventListener("change", setData ) //영화 선택
+movie_pick.addEventListener("change", function(){
+    localStorage.removeItem('pay_adult'); //일반 가격
+    localStorage.removeItem('pay_youth'); //청소년 가격
+    localStorage.removeItem('per_adult'); //일반 인원수
+    localStorage.removeItem('per_youth'); //청소년 인원수
+    localStorage.removeItem('pay_total'); //청소년 인원수
+} ) //영화 선택
 
 
 
@@ -96,6 +116,10 @@ adult_sel.forEach(function(ele){ // 모든 일반 인원수 버튼
         document.querySelector('.pay_adult').style.display="block"
         pay()
     }
+    localStorage.setItem('per_adult', per_adult.innerText); //일반 인원수 저장
+
+    console.log(per_adult.innerText)
+
     })
 })
 
@@ -128,6 +152,10 @@ adult_sel2.forEach(function(ele){ // 모든 청소년 인원수 버튼
         document.querySelector('.pay_youth').style.display="block"
         pay()
     }
+    localStorage.setItem('per_youth',  per_youth.innerText ); //청소년 인원수 저장
+
+    console.log(per_youth.innerText)
+
     })
 })
 
@@ -159,9 +187,41 @@ el.addEventListener('click', function(e){
 movie_pick.value = localStorage.getItem('selectMovie'); 
 if(!movie_pick.value == '' ){
     setData();
+   
+} else{
+    setData();
+    movie_pick.value = ''
 }
-    
 console.log(movie_pick.value)
+
+// 총 금액 정보 저장
+function pay2(){
+    pay_adult.innerText = localStorage.getItem('pay_adult'); //일반 가격
+    pay_youth.innerText = localStorage.getItem('pay_youth'); //청소년 가격
+    per_adult.innerText = localStorage.getItem('per_adult'); //일반 인원수
+    per_youth.innerText = localStorage.getItem('per_youth'); //청소년 인원수
+    pay_total.innerText = (pay_adult.innerText * per_adult.innerText) + (pay_youth.innerText * per_youth.innerText) //총가격
+
+ 
+    if(per_adult.innerText > 0){
+        document.querySelector('.pay_adult').style.display="block"
+    }
+    if(per_youth.innerText > 0){
+        document.querySelector('.pay_youth').style.display="block"
+    }
+    adult_sel[0].classList.remove('on'); // 일반 인원수[0] 클래스 삭제 
+    adult_sel[per_adult.innerText].classList.add('on'); // 일반 인원수 저장
+    adult_sel2[0].classList.remove('on'); // 청소년 인원수[0] 클래스 삭제 
+     adult_sel2[per_youth.innerText].classList.add('on'); // 청소년 인원수 저장
+
+} 
+pay2();
+console.log(pay_adult.innerText)
+console.log(pay_youth.innerText)
+console.log(per_adult.innerText)
+console.log(per_youth.innerText)
+console.log(pay_total.innerText)
+
 
 
 
