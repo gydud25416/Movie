@@ -6,7 +6,7 @@ a:hover{color:#333}
 li,ul{list-style:none;}
 
 /* common */
-section {width:800px; height:520px; border-radius: 10px; background:#fff; padding:30px 20px; margin:0 auto; position:relative; top:30px; display: flex; justify-content: space-between;}
+section {width:800px; height:545px; border-radius: 10px; background:#fff; padding:30px 20px; margin:0 auto; position:relative; top:30px; display: flex; justify-content: space-between;}
 .flex{display: flex; }
 
 /* 썸네일 */
@@ -32,7 +32,10 @@ section .image{ width:48%; height:100%; background:url(images/movie_00.jpg) no-r
 .age div ul a{border:1px #333 solid; border-radius: 3px; padding:5px 10px; margin-right:5px; color:#222; font-weight: bold;}
 .age div ul a.on{border:1px #333 solid; border-radius: 3px; padding:5px 10px; background:#333; margin-right:5px; color:#fff; font-weight: bold;}
 
-.screen {text-align: center; color:#fff; background:#666; padding:3px; width:100%; margin-top:20px;}
+.reset{display: flex; justify-content: flex-end; align-items: center;}
+.reset button {border: 1px solid #dc143c; border-radius: 5px; padding: 3px; display: flex; align-items: center; background: #fff; color: #dc143c; margin-left: 10px; cursor: pointer;}
+
+.screen {text-align: center; color:#fff; background:#666; padding:3px; width:100%; margin-top:10px;}
 
 .seat{justify-content: center;margin-bottom:30px;}
 .seat div{display: flex; flex-wrap: wrap; width:50px; justify-content: space-between; }
