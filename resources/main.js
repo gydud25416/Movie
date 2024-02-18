@@ -169,7 +169,7 @@ seat.forEach(function(el){
 el.addEventListener('click', function(e){
     var adult_sel_data = document.querySelector('.age_1 ul li a.on').dataset.num // 선택된 일반 인원수
     var youth_sel_data = document.querySelector('.age_2 ul li a.on').dataset.num // 선택된청소년 인원수
-    var seat_sel = document.querySelectorAll('.seat div a.select') // 선택된 좌석
+  var seat_sel = document.querySelectorAll('.seat div a.select') // 선택된 좌석
 
     if(seat_sel.length + 1 > parseInt(adult_sel_data) + parseInt(youth_sel_data) ){
      
@@ -213,8 +213,8 @@ function pay2(){
 
     pay_adult.innerText = localStorage.getItem('pay_adult'); //일반 가격
     pay_youth.innerText = localStorage.getItem('pay_youth'); //청소년 가격
-    per_adult.innerText = localStorage.getItem('per_adult'); //일반 인원수
-    per_youth.innerText = localStorage.getItem('per_youth'); //청소년 인원수
+    // per_adult.innerText = localStorage.getItem('per_adult'); //일반 인원수
+    // per_youth.innerText = localStorage.getItem('per_youth'); //청소년 인원수
 
     if(movie_pick.value == ''){
         pay_total.innerText = '0' //영화 미선택 시 0원
