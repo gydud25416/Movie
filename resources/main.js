@@ -31,7 +31,7 @@ function pay(){ //총금액 계산
     localStorage.setItem('pay_youth', parseInt( pay_youth.innerText) );
     localStorage.setItem('pay_total', pay_total.innerText);
 
-    console.log(pay_total.innerText)
+    // console.log(pay_total.innerText)
 
 }
 
@@ -107,13 +107,13 @@ adult_sel.forEach(function(ele){ // 모든 일반 인원수 버튼
     }
     localStorage.setItem('per_adult', per_adult.innerText); //일반 인원수 저장
 
-    console.log(per_adult.innerText)
+    // console.log(per_adult.innerText)
     localStorage.removeItem('seatIndex') //좌석 초기화
     reset();
     se_text.innerText = "40"   
     var seat_empty = "40"
     localStorage.setItem('seat_empty', seat_empty ) //빈좌석 수 저장
-    console.log(seat_empty)
+    // console.log(seat_empty)
     })
 })
 
@@ -148,13 +148,13 @@ adult_sel2.forEach(function(ele){ // 모든 청소년 인원수 버튼
     }
     localStorage.setItem('per_youth',  per_youth.innerText ); //청소년 인원수 저장
 
-    console.log(per_youth.innerText)
+    // console.log(per_youth.innerText)
     localStorage.removeItem('seatIndex') //좌석idx 초기화
     reset();
     se_text.innerText = "40"   
     var seat_empty = "40"
     localStorage.setItem('seat_empty', seat_empty ) //빈좌석 수 저장
-    console.log(seat_empty)
+    // console.log(seat_empty)
     })
 })
 
@@ -189,7 +189,7 @@ el.addEventListener('click', function(e){
     se_text.innerText = seat_empty;
 
     localStorage.setItem('seat_empty', seat_empty ) //빈좌석 수 저장
-     console.log(seat_empty)
+    //  console.log(seat_empty)
 })
 })
 
@@ -204,7 +204,7 @@ function reset(){
     se_text.innerText = "40"   
     var seat_empty = "40"
     localStorage.setItem('seat_empty', seat_empty ) //빈좌석 수 저장
-    console.log(seat_empty)
+    // console.log(seat_empty)
     localStorage.removeItem('seatIndex') //좌석idx 초기화
 
     })
@@ -220,7 +220,7 @@ if(!movie_pick.value == '' ){
     setData();
     movie_pick.value = ''
 }
-console.log(movie_pick.value)
+// console.log(movie_pick.value)
 
 // 총 금액 정보, 좌석 정보 저장
 function pay2(){
@@ -257,11 +257,11 @@ function pay2(){
 }
 } 
 pay2(); // 총 금액 정보, 좌석 정보 저장
-console.log(pay_adult.innerText)
-console.log(pay_youth.innerText)
-console.log(per_adult.innerText)
-console.log(per_youth.innerText)
-console.log(pay_total.innerText)
+// console.log(pay_adult.innerText)
+// console.log(pay_youth.innerText)
+// console.log(per_adult.innerText)
+// console.log(per_youth.innerText)
+// console.log(pay_total.innerText)
 
 /* 일반, 청소년 인원수 저장 불러오기 */
 per_adult.innerText = localStorage.getItem('per_adult');
